@@ -1,14 +1,11 @@
 package edu.iu.habahram.GumballMachine.model;
 
-import edu.iu.habahram.GumballMachine.model.*;
-
 public class GumballMachine2 implements IGumballMachine{
     String id;
     IState soldOutState;
     IState noQuarterState;
     IState hasQuarterState;
     IState soldState;
-
     IState state;
 
     public IState getState() {
@@ -20,13 +17,13 @@ public class GumballMachine2 implements IGumballMachine{
     }
 
     public void setCount(int count) {
+        System.out.println("GumballMachine2 Setting count to " + count);
         this.count = count;
     }
 
     public String getTheStateName() {
         return state.getTheName();
     }
-
 
 
     public void setState(IState state) {
@@ -47,11 +44,13 @@ public class GumballMachine2 implements IGumballMachine{
     }
     @Override
     public TransitionResult insertQuarter() {
+        System.out.println("Inserting quarter: " + state);
         return state.insertQuarter();
     }
 
     @Override
     public TransitionResult ejectQuarter() {
+        System.out.println("Ejecting quarter" + state);
         return state.ejectQuarter();
     }
 
@@ -59,6 +58,11 @@ public class GumballMachine2 implements IGumballMachine{
     public TransitionResult turnCrank() {
         state.turnCrank();
         return state.dispense();
+    }
+
+    @Override
+    public TransitionResult refill(int countBalls) {
+        return state.refill(countBalls);
     }
 
     @Override

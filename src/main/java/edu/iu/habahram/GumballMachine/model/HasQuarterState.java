@@ -1,7 +1,8 @@
 package edu.iu.habahram.GumballMachine.model;
 
 public class HasQuarterState implements IState {
-    IGumballMachine gumballMachine;
+
+    private IGumballMachine gumballMachine;
 
     public HasQuarterState(IGumballMachine gumballMachine) {
         this.gumballMachine = gumballMachine;
@@ -11,9 +12,7 @@ public class HasQuarterState implements IState {
     public TransitionResult insertQuarter() {
         String message = "You can't insert another quarter";
         boolean succeeded = false;
-        int count = gumballMachine.getCount();
-        return new TransitionResult(succeeded, message,
-                gumballMachine.getTheStateName(), count);
+        return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
     }
 
     @Override
@@ -21,9 +20,7 @@ public class HasQuarterState implements IState {
         gumballMachine.changeTheStateTo(GumballMachineState.NO_QUARTER);
         String message = "Quarter returned";
         boolean succeeded = true;
-        int count = gumballMachine.getCount();
-        return new TransitionResult(succeeded, message,
-                gumballMachine.getTheStateName(), count);
+        return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
     }
 
     @Override
@@ -31,19 +28,23 @@ public class HasQuarterState implements IState {
         gumballMachine.changeTheStateTo(GumballMachineState.GUMBALL_SOLD);
         String message = "You turned...";
         boolean succeeded = true;
-        int count = gumballMachine.getCount();
-        return new TransitionResult(succeeded, message,
-                gumballMachine.getTheStateName(), count);
+        return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
     }
 
     @Override
     public TransitionResult dispense() {
         String message = "No gumball dispensed";
         boolean succeeded = false;
-        int count = gumballMachine.getCount();
-        return new TransitionResult(succeeded, message,
-                gumballMachine.getTheStateName(), count);
+        return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
     }
+
+    @Override
+    public TransitionResult refill(int balls) {
+        String message = "Machine doesn't need to be refilled";
+        boolean succeeded = false;
+        return new TransitionResult(succeeded, message, gumballMachine.getTheStateName(), gumballMachine.getCount());
+    }
+
     @Override
     public String getTheName() {
         return GumballMachineState.HAS_QUARTER.name();
